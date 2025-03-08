@@ -33,23 +33,13 @@ function removeLast() {
 }
 
 function calculate() {
-    const result = textBox.value.split(' ').reduce((total, current, index, array) => {
-        if (current === '+') {
-            return total + parseFloat(array[index + 1]);
-        } else if (current === '-') {
-            return total - parseFloat(array[index + 1]);
-        } else if (current === '*') {
-            return total * parseFloat(array[index + 1]);
-        } else if (current === '/') {
-            return total / parseFloat(array[index + 1]);
-        } else if (current === '%') {
-            return total / parseFloat(array[index + 1]);
-        } else if (current === '^') {
-            return total / parseFloat(array[index + 1]);
-        } 
-        else {
-            return parseFloat(current);
-        }
-    }, 0);
-    textBox.value = result;
+    try {
+        // Replace ^ with ** for exponentiation
+        const expression = textBox.value.replace(/\^/g, '**');
+        // Evaluate the expression
+        const result = new Function('return ' + expression)();
+        textBox.value = result;
+    } catch (error) {
+        textBox.value = 'Error';
+    }
 }
