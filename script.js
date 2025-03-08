@@ -38,7 +38,7 @@ function calculate() {
         const expression = textBox.value.replace(/\^/g, '**');
         // Evaluate the expression
         const result = new Function('return ' + expression)();
-        textBox.value = result;
+        textBox.value = result.toFixed(5);
     } catch (error) {
         textBox.value = 'Error';
     }
